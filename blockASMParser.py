@@ -58,6 +58,7 @@ class scProjectObject:
     def compile(self) -> str:
         pass
 
+# It takes a .sb3 file and parses it into a Python object
 class blockASMProject:
     def __init__(self, scFilePath: str, scFileTargetDir: str) -> None:
         self.scFilePath = scFilePath

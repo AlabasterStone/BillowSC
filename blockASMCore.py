@@ -91,7 +91,7 @@ class blockASMProject:
     def __init__(self, scFilePath: str, scFileTargetDir: str) -> None:
         self.scFilePath = scFilePath
         self.scFileTargetDir = scFileTargetDir
-        self.scJsonFilePath = scFileTargetDir + "/project.json"
+        self.scJsonFilePath = f"{scFileTargetDir}/project.json"
         self.unpackZip()
 
     def unpackZip(self):
@@ -106,14 +106,14 @@ class blockASMProject:
             scJsonTargets = scJsonObject["targets"]
             scSpritesList = []
             for target in scJsonTargets:
-               isStage = target["isStage"]
-               name = target["name"]
-               variables = target["variables"]
-               lists = target["lists"]
-               broadcasts = target["broadcasts"]
-               blocks = target["blocks"]
-               scBlocksList = []
-               for blockID, block in blocks.items():
+                isStage = target["isStage"]
+                name = target["name"]
+                variables = target["variables"]
+                lists = target["lists"]
+                broadcasts = target["broadcasts"]
+                blocks = target["blocks"]
+                scBlocksList = []
+                for blockID, block in blocks.items():
                     if type(block) == Dict:
                         opcode = block['opcode']
                         nextID = block["next"]
@@ -121,17 +121,15 @@ class blockASMProject:
                         inputs = block["inputs"]
                         topLevel = block["topLevel"]
                         scBlocksList.append(scProjectBlock(blockID, opcode, nextID, parentID, inputs, topLevel))
-                    elif type(block) == List:
-                        pass
-               currentCostume = target["currentCostume"]
-               costumes = target["costumes"]
-               sounds = target["sounds"]
-               volume = target["volume"]
-               layerOrder = target["layerOrder"]
-               tempo = target["tempo"]
-               videoTransparency = target["videoTransparency"]
-               videoState = target["videoState"]
-               scSpritesList.append(scProjectSprite(isStage,name, variables, lists, broadcasts, scBlocksList, currentCostume, costumes, sounds, volume, layerOrder, tempo, videoTransparency, videoState))
+                currentCostume = target["currentCostume"]
+                costumes = target["costumes"]
+                sounds = target["sounds"]
+                volume = target["volume"]
+                layerOrder = target["layerOrder"]
+                tempo = target["tempo"]
+                videoTransparency = target["videoTransparency"]
+                videoState = target["videoState"]
+                scSpritesList.append(scProjectSprite(isStage,name, variables, lists, broadcasts, scBlocksList, currentCostume, costumes, sounds, volume, layerOrder, tempo, videoTransparency, videoState))
             monitors = scJsonObject["monitors"]
             extensions = scJsonObject["extensions"]
             return scProjectObject(scProjectTarget(scSpritesList), monitors, extensions)

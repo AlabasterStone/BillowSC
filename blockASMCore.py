@@ -45,7 +45,7 @@ class scProjectBlock:
         pass
 
 class scProjectSprite:
-    def __init__(self, isStage: bool, name: str, variables, lists, broadcasts, blocks: List[scProjectBlock], currentCostume: int, costumes, sounds, volume: int, layerOrder: int, tempo: int, videoTransparency: int, videoState: str) -> None:
+    def __init__(self, isStage: bool, name: str, variables, lists, broadcasts, blocks: List[scProjectBlock], currentCostume: int, costumes, sounds, volume: int, layerOrder: int, tempo: int) -> None:
         self.isStage = isStage
         self.name = name
         self.varibles = variables
@@ -58,8 +58,6 @@ class scProjectSprite:
         self.volume = volume
         self.layerOrder = layerOrder
         self.tempo = tempo
-        self.videoTransparency = videoTransparency
-        self.videoState = videoState
 
     # TODO: compile sprite
     # return C++ code
@@ -76,7 +74,7 @@ class scProjectTarget:
         pass
 
 class scProjectObject:
-    def __init__(self, targets: scProjectTarget, monitors, extensions: list) -> None:
+    def __init__(self, targets: scProjectTarget, monitors: List[scProjectMonitor], extensions: list) -> None:
         self.targets = targets
         self.monitors = monitors
         self.extensions = extensions
@@ -84,7 +82,11 @@ class scProjectObject:
     # TODO: compile object
     # return C++ code
     def compile(self) -> str:
-        pass
+        code = ""
+        code += self.targets.compile()
+        for monitor in self.monitors:
+            code += monitor.compile()
+        return code
 
 # It takes a .sb3 file and parses it into a Python object
 class blockASMProject:
@@ -129,9 +131,7 @@ class blockASMProject:
                volume = target["volume"]
                layerOrder = target["layerOrder"]
                tempo = target["tempo"]
-               videoTransparency = target["videoTransparency"]
-               videoState = target["videoState"]
-               scSpritesList.append(scProjectSprite(isStage,name, variables, lists, broadcasts, scBlocksList, currentCostume, costumes, sounds, volume, layerOrder, tempo, videoTransparency, videoState))
+               scSpritesList.append(scProjectSprite(isStage,name, variables, lists, broadcasts, scBlocksList, currentCostume, costumes, sounds, volume, layerOrder, tempo))
             monitors = scJsonObject["monitors"]
             extensions = scJsonObject["extensions"]
             return scProjectObject(scProjectTarget(scSpritesList), monitors, extensions)

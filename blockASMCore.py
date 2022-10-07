@@ -12,6 +12,7 @@ from typing import Any, Dict, List
 # set logger
 logging.basicConfig(level=logging.DEBUG)
 
+
 class scProjectMonitor:
     def __init__(self, id: str, mode: str, opcode: str, params: dict, spriteName: Any, value: int, visible: bool, sliderMin: int, sliderMax: int, isDiscrete: bool) -> None:
         self.id = id
@@ -30,6 +31,7 @@ class scProjectMonitor:
     def compile(self) -> str:
         pass
 
+
 class scProjectBlock:
     def __init__(self, blockID: str, opcode: str, nextID: str, parentID: str, inputs: dict, topLevel: bool) -> None:
         self.blockID = blockID
@@ -43,6 +45,7 @@ class scProjectBlock:
     # return C++ code
     def compile(self) -> str:
         pass
+
 
 class scProjectSprite:
     def __init__(self, isStage: bool, name: str, variables, lists, broadcasts, blocks: List[scProjectBlock], currentCostume: int, costumes, sounds, volume: int, layerOrder: int, tempo: int) -> None:
@@ -64,14 +67,16 @@ class scProjectSprite:
     def compile(self) -> str:
         pass
 
+
 class scProjectTarget:
     def __init__(self, sprites: List[scProjectSprite]) -> None:
         self.sprites = sprites
-    
+
     # TODO: compile object
     # return C++ code
     def compile(self) -> str:
         pass
+
 
 class scProjectObject:
     def __init__(self, targets: scProjectTarget, monitors: List[scProjectMonitor], extensions: list) -> None:
@@ -89,11 +94,13 @@ class scProjectObject:
         return code
 
 # It takes a .sb3 file and parses it into a Python object
+
+
 class blockASMProject:
     def __init__(self, scFilePath: str, scFileTargetDir: str) -> None:
         self.scFilePath = scFilePath
         self.scFileTargetDir = scFileTargetDir
-        self.scJsonFilePath = scFileTargetDir + "/project.json"
+        self.scJsonFilePath = f"{scFileTargetDir}/project.json"
         self.unpackZip()
 
     def unpackZip(self):
@@ -116,13 +123,14 @@ class blockASMProject:
                blocks = target["blocks"]
                scBlocksList = []
                for blockID, block in blocks.items():
-                    if type(block) == Dict:
+                   if type(block) == Dict:
                         opcode = block['opcode']
                         nextID = block["next"]
                         parentID = block["parent"]
                         inputs = block["inputs"]
                         topLevel = block["topLevel"]
-                        scBlocksList.append(scProjectBlock(blockID, opcode, nextID, parentID, inputs, topLevel))
+                        scBlocksList.append(scProjectBlock(
+                            blockID, opcode, nextID, parentID, inputs, topLevel))
                     elif type(block) == List:
                         pass
                currentCostume = target["currentCostume"]
@@ -131,12 +139,13 @@ class blockASMProject:
                volume = target["volume"]
                layerOrder = target["layerOrder"]
                tempo = target["tempo"]
-               scSpritesList.append(scProjectSprite(isStage,name, variables, lists, broadcasts, scBlocksList, currentCostume, costumes, sounds, volume, layerOrder, tempo))
+               scSpritesList.append(scProjectSprite(isStage, name, variables, lists, broadcasts, scBlocksList, currentCostume, costumes, sounds, volume, layerOrder, tempo))
             monitors = scJsonObject["monitors"]
             extensions = scJsonObject["extensions"]
             return scProjectObject(scProjectTarget(scSpritesList), monitors, extensions)
 
 # standard compiler
+
 class blockASMStandard:
     def __init__(self) -> None:
         pass
@@ -145,12 +154,14 @@ class blockASMStandard:
         pass
 
 #test function
+
 def testing():
     import pathlib
     import shutil
     if pathlib.Path("./test/testproject").exists():
         shutil.rmtree("./test/testproject")
 
-    obj = blockASMProject("./test/testproject.sb3", "./test/testproject").parseSb3Json()
+    obj = blockASMProject("./test/testproject.sb3",
+                          "./test/testproject").parseSb3Json()
     logging.debug(obj.targets.sprites[0].currentCostume)
 testing()

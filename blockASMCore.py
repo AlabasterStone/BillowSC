@@ -1,6 +1,6 @@
 '''
 MIT License
-Copyright (c) Luminous Zhang 2022
+Copyright (c) zhangsn 2022
 All right reserved
 '''
 

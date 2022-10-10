@@ -4,6 +4,9 @@ Copyright (c) zhangsn 2022
 All right reserved
 '''
 
+__author__ = 'zhangsn'
+__version__ = 'BlockAssembly@0.0.5'
+
 import logging
 import json
 from zipfile import ZipFile

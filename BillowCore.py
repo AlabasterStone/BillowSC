@@ -4,9 +4,6 @@ Copyright (c) zhangsn 2022
 All right reserved
 '''
 
-__author__ = 'zhangsn'
-__version__ = 'BlockAssembly@0.0.5'
-
 import logging
 import json
 from zipfile import ZipFile
@@ -99,7 +96,7 @@ class scProjectObject:
 # It takes a .sb3 file and parses it into a Python object
 
 
-class blockASMProject:
+class BillowProject:
     def __init__(self, scFilePath: str, scFileTargetDir: str) -> None:
         self.scFilePath = scFilePath
         self.scFileTargetDir = scFileTargetDir
@@ -126,7 +123,7 @@ class blockASMProject:
                blocks = target["blocks"]
                scBlocksList = []
                for blockID, block in blocks.items():
-                   if type(block) == Dict:
+                    if type(block) == Dict:
                         opcode = block['opcode']
                         nextID = block["next"]
                         parentID = block["parent"]
@@ -149,7 +146,7 @@ class blockASMProject:
 
 # standard compiler
 
-class blockASMStandard:
+class BillowStandard:
     def __init__(self) -> None:
         pass
 
@@ -164,7 +161,7 @@ def testing():
     if pathlib.Path("./test/testproject").exists():
         shutil.rmtree("./test/testproject")
 
-    obj = blockASMProject("./test/testproject.sb3",
+    obj = BillowProject("./test/testproject.sb3",
                           "./test/testproject").parseSb3Json()
     logging.debug(obj.targets.sprites[0].currentCostume)
 testing()

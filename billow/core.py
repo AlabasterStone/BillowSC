@@ -1,8 +1,8 @@
 '''
-MIT License
-Copyright (c) zhangsn 2022
-All right reserved
-version 0.1.5[demo]
+MIT License\n
+Copyright (c) zhangsn 2022\n
+All right reserved\n
+version 0.1.5[demo]\n
 '''
 
 import logging
@@ -30,7 +30,7 @@ class scProjectMonitor:
     # TODO: compile monitor
     # return C++ code
     def compile(self) -> str:
-        pass
+        return ""
 
 
 class scProjectBlock:
@@ -45,7 +45,7 @@ class scProjectBlock:
     # TODO: compile block
     # return C++ code
     def compile(self) -> str:
-        pass
+        return ""
 
 
 class scProjectSprite:
@@ -66,7 +66,7 @@ class scProjectSprite:
     # TODO: compile sprite
     # return C++ code
     def compile(self) -> str:
-        pass
+        return ""
 
 
 class scProjectTarget:
@@ -76,7 +76,7 @@ class scProjectTarget:
     # TODO: compile object
     # return C++ code
     def compile(self) -> str:
-        pass
+        return ""
 
 
 class scProjectObject:
@@ -124,7 +124,7 @@ class billowProject:
                blocks = target["blocks"]
                scBlocksList = []
                for blockID, block in blocks.items():
-                   if type(block) == Dict:
+                    if type(block) == Dict:
                         opcode = block['opcode']
                         nextID = block["next"]
                         parentID = block["parent"]
@@ -168,5 +168,6 @@ def testing():
     obj = billowProject("./test/testproject.sb3",
                         "./test/testproject").parseSb3Json()
     logging.debug(obj.targets.sprites[0].currentCostume)
+
 
 testing()

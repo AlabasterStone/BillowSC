@@ -30,7 +30,8 @@ class scProjectMonitor:
     # TODO: compile monitor
     # return C++ code
     def compile(self) -> str:
-        return ""
+        # TODO: id有非法字符，变量名需要更换
+        return f"scMonitor {self.id}"
 
 
 class scProjectBlock:
@@ -88,7 +89,7 @@ class scProjectObject:
     # TODO: compile object
     # return C++ code
     def compile(self) -> str:
-        code = ""
+        code = "using namespace billow;"
         code += self.targets.compile()
         for monitor in self.monitors:
             code += monitor.compile()

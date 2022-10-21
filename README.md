@@ -1,1 +1,1 @@
-# BillowSC is yet another Scratch Runtime
+# BillowSC is a Scratch Runtime

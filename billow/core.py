@@ -2,7 +2,7 @@
 MIT License\n
 Copyright (c) zhangsn 2022\n
 All right reserved\n
-version 0.1.5[demo]\n
+version 0.1.5[dev]\n
 '''
 
 import logging

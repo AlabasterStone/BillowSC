@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 class scProjectMonitor:
-    def __init__(self, id: str, mode: str, opcode: str, params: dict, spriteName: Any, value: int, visible: bool, sliderMin: int, sliderMax: int, isDiscrete: bool) -> None:
+    def __init__(self, id: str, mode: str, opcode: str, params: dict, spriteName: str | None, value: int, visible: bool, sliderMin: int, sliderMax: int, isDiscrete: bool) -> None:
         self.id = id
         self.mode = mode
         self.opcode = opcode

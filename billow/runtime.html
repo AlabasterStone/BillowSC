@@ -1,4 +1,12 @@
 <head></head>
-<canvas id="pongcanvas"></canvas>
-
-<script src="./runtime.js"></script>
+<canvas id="canvas"></canvas>
+<script>
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
+    ctx.fillStyle = 'green';
+    //ctx.fillRect(120, 10, 150, 150);
+    imgd = new Image();
+    imgd.src = "svg.svg";
+    ctx.drawImage(imgd, 0, 0);
+    console.log(ctx.getImageData(0, 0, 150, 150));
+</script>

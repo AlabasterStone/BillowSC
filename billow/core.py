@@ -50,7 +50,7 @@ class scProjectBlock:
 
 
 class scProjectSprite:
-    def __init__(self, isStage: bool, name: str, variables, lists, broadcasts, blocks: List[scProjectBlock], currentCostume: int, costumes, sounds, volume: int, layerOrder: int, tempo: int) -> None:
+    def __init__(self, isStage: bool, name: str, variables, lists, broadcasts, blocks: List[scProjectBlock], currentCostume: int, costumes, sounds, volume: int, layerOrder: int, visible: bool, tempo: int, x: int, y: int, size: int, direction: int, rotationStyle: str) -> None:
         self.isStage = isStage
         self.name = name
         self.varibles = variables
@@ -62,7 +62,13 @@ class scProjectSprite:
         self.sounds = sounds
         self.volume = volume
         self.layerOrder = layerOrder
+        self.visible = visible
         self.tempo = tempo
+        self.x = x
+        self.y = y
+        self.size = size
+        self.direction = direction
+        self.rotationSyle = rotationStyle
 
     # TODO: compile sprite
     # return C++ code
@@ -81,8 +87,8 @@ class scProjectTarget:
 
 
 class scProjectObject:
-    def __init__(self, targets: scProjectTarget, monitors: List[scProjectMonitor], extensions: list) -> None:
-        self.targets = targets
+    def __init__(self, target: scProjectTarget, monitors: List[scProjectMonitor], extensions: list) -> None:
+        self.target = target
         self.monitors = monitors
         self.extensions = extensions
 
@@ -90,7 +96,7 @@ class scProjectObject:
     # return C++ code
     def compile(self) -> str:
         code = "using namespace billow;"
-        code += self.targets.compile()
+        code += self.target.compile()
         for monitor in self.monitors:
             code += monitor.compile()
         return code
@@ -168,7 +174,7 @@ def testing():
 
     obj = billowProject("./test/testproject.sb3",
                         "./test/testproject").parseSb3Json()
-    logging.debug(obj.targets.sprites[0].currentCostume)
+    logging.debug(obj.target.sprites[0].currentCostume)
 
 
 testing()
